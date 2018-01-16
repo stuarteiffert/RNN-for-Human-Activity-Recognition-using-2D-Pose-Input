@@ -29,7 +29,7 @@ In total, there are 1438 videos (2 were missing) made up of 211200 individual fr
 
 The below image is an example of the 4 camera views during the 'boxing' action for subject 1
 
-![gif not being displayed properly, trust me it would be great](boxing_all_views.gif.png "Title")
+![gif not being displayed properly, trust me it would be great](images/boxing_all_views.gif.png "Title")
 
 The input for the LSTM is the 2D position of 18 joints across a timeseries of frames numbering n_steps (window-width), with an associated class label for the frame series.  
 A single frame's input (where j refers to a joint) is stored as:
@@ -634,6 +634,11 @@ plt.ylabel('True label')
 plt.xlabel('Predicted label')
 plt.show()
 ```
+![png](LSTM_files/LSTM_18_1.png)
+
+![accuracy graph](images/accuracy.png)
+![confusion matrix](images/confusion_matrix.png "Title")
+
 
 
 ```python
