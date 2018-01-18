@@ -628,9 +628,6 @@ plt.show()
 ```
 
 
-![png](LSTM_files/LSTM_14_0.png)
-
-
     Testing Accuracy: 86.2990796566%
     
     Precision: 86.7570501739%
