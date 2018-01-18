@@ -544,7 +544,7 @@ print("FINAL RESULT: " + \
     Training iter #2700000:   Batch Loss = 0.922328, Accuracy = 0.952666640282
     PERFORMANCE ON TEST SET: Batch Loss = 0.910977244377, Accuracy = 0.951545536518
     Optimization Finished!
-    FINAL RESULT: Batch Loss = 1.14671218395, Accuracy = 0.862990796566
+    FINAL RESULT: Batch Loss = 0.82083427906, Accuracy = 0.961570620537
 
 
 ## Results:
@@ -642,7 +642,8 @@ plt.show()
 
 
 
-![png](LSTM_files/LSTM_14_2.png)
+![Accuracy](images/accuracy.png)
+![confusion matrix](images/confusion_matrix.png "Title")
 
 
 
