@@ -28,6 +28,7 @@ repetition_nums=5
 
 openpose_2person_count = 0
 
+#loop through all saved .json files, outputs from Openspose
 for cluster in range(1,cluster_nums+1):
 	for camera in range(1,camera_nums+1):
 		for subject in range(1,subject_nums+1):
@@ -50,7 +51,7 @@ for cluster in range(1,cluster_nums+1):
 							#kps is a list of pose keypoints in each frame, where kps[0] is the x position of kp0, kps[1] is the y position of kp0 etc
 							kps = []
 							#[kps.append([]) for i in range(36)]
-
+							#loop through all .json files (1 per frame) in frameset. generally <140
 							for file in sorted(glob.glob("*.json")):
 								with open(file) as data_file: 
 									data = json.load(data_file)
@@ -61,6 +62,7 @@ for cluster in range(1,cluster_nums+1):
 										print file
 									frame_kps = []
 									pose_keypoints = data["people"][0]["pose_keypoints"]
+									#loop through 18 pose keypoints (total = 54, 18x3 (x, y and accuracy))
 									j = 0
 									for i in range(36):
 										frame_kps.append(pose_keypoints[j])
@@ -69,7 +71,10 @@ for cluster in range(1,cluster_nums+1):
 											j += 1
 									kps.append(frame_kps)
 
-
+							#Now we have kps, a list of lists, that includes the x and y positions of all 18 keypoints, for all frames in the frameset
+							# So a list of length frameset.length, with each element being a 36 element long list.
+							#Next, we simply loop through kps, writing the contents to a text file, where each sub list is a new line.
+							#At this point, there is no overlap, and datasets are all of varying length
 							os.chdir(os.path.join(data_path,activity_list[activity]))
 							output_file = activity_list[activity]+frame_set+".txt"
 							with open(output_file, "w") as text_file:
