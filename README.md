@@ -1,5 +1,5 @@
 
-## RNN for Human Activity Recognition - 2D Pose Input
+# RNN for Human Activity Recognition - 2D Pose Input
 
 This experiment is the classification of human activities using a 2D pose time series dataset and an LSTM RNN.
 The idea is to prove the concept that using a series of 2D poses, rather than 3D poses or a raw 2D images, can produce an accurate estimation of the behaviour of a person or animal.
@@ -29,6 +29,9 @@ Notable changes that have been made (other than accounting for dataset sizes) ar
 
 
 ## Dataset overview
+
+(Data is available from https://drive.google.com/open?id=1IuZlyNjg6DMQE3iaO1Px6h1yLKgatynt
+Place dataset in folder structure as per DATASET_PATH. )
 
 The dataset consists of pose estimations, made using the software OpenPose (https://github.com/CMU-Perceptual-Computing-Lab/openpose's) on a subset of the Berkeley Multimodal Human Action Database (MHAD) dataset http://tele-immersion.citris-uc.org/berkeley_mhad.
 
@@ -80,7 +83,10 @@ Note that their is no overlap between test and train sets, which were seperated 
 
 
 ## Training and Results below: 
-Training took approximately 4 mins running on a single GTX1080Ti, and was run for 22,000,000ish iterations with a batch size of 5000  (600 epochs)
+Training took approximately 7 mins running on a single GTX1080Ti, and was run for 100 epochs with a batch size of 4096.
+Note that accuracy and ability to generalise can be improved by decreasing batch size, at the expense of training time. This can be shown experimentaly by leaving out a subject during training, and including them during testing only.
+
+Inference on a single datapoint, after training, takes approximately 0.3ms on the same system
 
 
 
@@ -196,8 +202,8 @@ decay_steps = 100000 #used in decay every 60000 steps with a base of 0.96
 global_step = tf.Variable(0, trainable=False)
 lambda_loss_amount = 0.0015
 
-training_iters = training_data_count *300  # Loop 300 times on the dataset, ie 300 epochs
-batch_size = 512
+training_iters = training_data_count *100  # Loop 100 times on the dataset, ie 100 epochs
+batch_size = 4096
 display_iter = batch_size*8  # To show test set accuracy during training
 
 print("(X shape, y shape, every X's mean, every X's standard deviation)")
@@ -526,10 +532,9 @@ In terms of the applicability of this to a wider dataset, I would imagine that i
      - It is neccessary to ensure you are not just sampling classes one at a time! (ie y_train is ordered by class and batch chosen in order)The use of random sampling of batches without replacement from the training data resolves this.    
  
  - Architecture
-     - Testing has been run using a variety of hidden units per LSTM cell, with results showing that testing accuracy achieves a higher score when using a number of hidden cells approximately equal to that of the input, ie 34. The following figure displays the final accuracy achieved on the testing dataset for a variety of hidden units, all using a batch size of 4096 and 300 epochs (a total of 1657 iterations, with testing performed every 8th iteration).
+     - Testing has been run using a variety of hidden units per LSTM cell, with results showing that testing accuracy achieves a higher score when using a number of hidden cells approximately equal to that of the input, ie 34.
    
- 
- 
+  
 
 ## Future Works
 
